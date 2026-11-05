@@ -1,0 +1,65 @@
+// --- ПЕРЕМЕННЫЕ ---
+$font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$text-color: #333;
+$header-bg: #2c3e50;
+$white: #ffffff;
+$max-width: 1200px;
+$accent-color: #3498db; // Добавили цвет для акцентов/ховеров
+
+// --- МИКСИНЫ (Функции для повторяющихся стилей) ---
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// --- СБРОС СТИЛЕЙ (RESET) ---
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-main;
+  line-height: 1.6;
+  color: $text-color;
+  background-color: #f9f9f9; // Легкий фон для всего сайта
+}
+
+// --- ШАПКА САЙТА (HEADER) ---
+header {
+  background: $header-bg;
+  color: $white;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav {
+  // Применяем наш миксин вместо трех строк кода
+  @include flex-between; 
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  // Дорабатываем меню внутри nav
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem; // Расстояние между пунктами меню (современный способ)
+
+    a {
+      color: $white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+
+      // Используем & для стилизации наведения на ссылку
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+}

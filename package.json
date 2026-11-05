@@ -1,0 +1,10 @@
+{
+  "name": "website-as-kr-main",
+  "version": "1.0.0",
+  "scripts": {
+    "sass": "sass --watch css/style.scss:css/style.css"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0" 
+  }
+}
