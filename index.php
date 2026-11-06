@@ -112,5 +112,6 @@
         <p>📍 Московская область, д. Лесная, 15</p>
         <p>&copy; 2026 Турбаза "Лесная поляна"</p>
     </footer>
+    <script src="js/script.js"></script>
 </body>
 </html>
