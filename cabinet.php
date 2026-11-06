@@ -40,6 +40,7 @@
                     <th>Выезд</th>
                     <th>Сумма</th>
                     <th>Статус</th>
+                    <th>Действия</th> 
                 </tr>
             </thead>
             <tbody id="bookings-body">
@@ -72,15 +73,37 @@
                     const tbody = document.getElementById('bookings-body');
                     data.bookings.forEach(booking => {
                         const row = tbody.insertRow();
+                        
+                        // Заполняем первые 4 ячейки
                         row.insertCell().textContent = booking.cabin_name;
                         row.insertCell().textContent = booking.check_in;
                         row.insertCell().textContent = booking.check_out;
                         row.insertCell().textContent = booking.total_price + ' ₽';
 
+                        // Ячейка со статусом
+                        const statusCell = row.insertCell();
                         const span = document.createElement('span');
                         span.className = 'status ' + booking.status;
                         span.textContent = booking.status;
-                        row.insertCell().appendChild(span);
+                        statusCell.appendChild(span);
+
+                        // Ячейка с кнопкой "Отменить"
+                        const actionCell = row.insertCell();
+                        
+                        // Показываем кнопку только если бронь не отменена
+                        if (booking.status !== 'cancelled') {
+                            const btn = document.createElement('button');
+                            btn.className = 'btn-small btn-cancel';
+                            btn.textContent = 'Отменить';
+                            btn.dataset.id = booking.id; // Сохраняем ID брони в кнопку!
+                            
+                            // Вешаем обработчик клика
+                            btn.addEventListener('click', function() {
+                                cancelBooking(this.dataset.id, this, statusCell, span);
+                            });
+
+                            actionCell.appendChild(btn);
+                        }
                     });
                 } else {
                     document.getElementById('bookings-body').innerHTML = 
@@ -92,6 +115,47 @@
                     '<tr><td colspan="5" style="text-align:center; color:#c0392b;">' +
                     'Не удалось загрузить данные. Обновите страницу.</td></tr>';
             });
+        function cancelBooking(bookingId, btn, statusCell, statusSpan) {
+            // Спрашиваем подтверждение (чтобы не отменить случайно)
+            if (!confirm('Вы уверены, что хотите отменить эту бронь?')) {
+                return; 
+            }
+
+            // Отключаем кнопку, чтобы не нажали дважды
+            btn.disabled = true;
+            btn.textContent = 'Отмена...';
+
+            // Формируем данные для отправки
+            const formData = new FormData();
+            formData.append('id', bookingId);
+
+            // Отправляем POST-запрос на наш новый сервер
+            fetch('php/cancel_booking.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Успех! Меняем внешний вид прямо на экране, без перезагрузки
+                    statusSpan.className = 'status cancelled';
+                    statusSpan.textContent = 'cancelled';
+                    
+                    // Удаляем кнопку, так как бронь уже отменена
+                    btn.remove();
+                } else {
+                    // Если ошибка — показываем сообщение и возвращаем кнопку
+                    alert(data.error || 'Ошибка при отмене');
+                    btn.disabled = false;
+                    btn.textContent = 'Отменить';
+                }
+            })
+            .catch(() => {
+                alert('Ошибка сервера. Попробуйте позже.');
+                btn.disabled = false;
+                btn.textContent = 'Отменить';
+            });
+        }
     </script>
     <script src="js/script.js"></script>
 </body>
