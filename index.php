@@ -17,6 +17,29 @@
     
     <header>
         <nav>
+            <nav>
+                <div class="logo">🌲 Лесная поляна</div>
+                
+             
+                <button class="burger" id="burger-btn">☰</button>
+                
+                
+                <ul id="nav-menu">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#cabins">Домики</a></li>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#cabins">Домики</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                    <?php if ($is_logged_in): ?>
+                        <li><a href="cabinet.php">Личный кабинет</a></li>
+                        <li><a href="php/logout.php">Выйти</a></li>
+                    <?php else: ?>
+                        <li><a href="login.php">Войти</a></li>
+                        <li><a href="register.php">Регистрация</a></li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
             <div class="logo">🌲 Лесная поляна</div>
             <ul>
                 <li><a href="#home">Главная</a></li>
