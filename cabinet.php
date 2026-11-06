@@ -11,7 +11,11 @@
     <header>
         <nav>
             <div class="logo">Лесная поляна</div>
-            <ul>
+            
+            <button class="burger" id="burger-btn">☰</button>
+            
+            
+            <ul id="nav-menu">
                 <li><a href="index.php">Главная</a></li>
                 <li><a href="php/logout.php">Выйти</a></li>
             </ul>
@@ -89,5 +93,6 @@
                     'Не удалось загрузить данные. Обновите страницу.</td></tr>';
             });
     </script>
+    <script src="js/script.js"></script>
 </body>
 </html>

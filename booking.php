@@ -24,10 +24,13 @@ unset($_SESSION['booking_errors']);
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
+     <header>
         <nav>
             <div class="logo">🌲 Лесная поляна</div>
-            <ul>
+            
+            <button class="burger" id="burger-btn">☰</button>
+            
+            <ul id="nav-menu">
                 <li><a href="index.php">Главная</a></li>
                 <li><a href="cabinet.php">Личный кабинет</a></li>
                 <li><a href="php/logout.php">Выйти</a></li>
@@ -66,5 +69,6 @@ unset($_SESSION['booking_errors']);
             <p><a href="cabinet.php">← Назад в кабинет</a></p>
         </div>
     </div>
+    <script src="js/script.js"></script>
 </body>
 </html>

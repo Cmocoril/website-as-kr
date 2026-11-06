@@ -20,7 +20,10 @@ if (isset($_SESSION['user_id'])) {
     <header>
         <nav>
             <div class="logo">🌲 Лесная поляна</div>
-            <ul>
+            
+            <button class="burger" id="burger-btn">☰</button>
+            
+            <ul id="nav-menu">
                 <li><a href="index.php">Главная</a></li>
                 <li><a href="login.php">Вход</a></li>
             </ul>
@@ -65,5 +68,6 @@ if (isset($_SESSION['user_id'])) {
             <p>Уже есть аккаунт? <a href="login.php">Войти</a></p>
         </div>
     </div>
+    <script src="js/script.js"></script>
 </body>
 </html>
