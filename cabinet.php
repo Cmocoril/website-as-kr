@@ -11,12 +11,15 @@
     <header>
         <nav>
             <div class="logo">Лесная поляна</div>
-            
             <button class="burger" id="burger-btn">☰</button>
-            
-            
             <ul id="nav-menu">
                 <li><a href="index.php">Главная</a></li>
+                <?php        
+                $allowed_emails = ['x77722855@gmail.com', 'admin@lespolyana.ru'];
+                if (isset($_SESSION['email']) && in_array($_SESSION['email'], $allowed_emails)): 
+                ?>
+                    <li><a href="analytics.php">📊 Аналитика</a></li>
+                <?php endif; ?>
                 <li><a href="php/logout.php">Выйти</a></li>
             </ul>
         </nav>
