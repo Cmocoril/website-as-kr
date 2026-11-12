@@ -1,25 +1,19 @@
 <?php
 session_start();
 require_once 'php/db_connect.php';
-
-// 1. ПРОВЕРКА ДОСТУПА: Белый список email сотрудников
-// Добавь сюда email тех, кто должен иметь доступ к аналитике
 $allowed_emails = [
-    'x77722855@gmail.com',  // Твой email из БД
-    'admin@lespolyana.ru',  // Можно добавить других
+    'x77722855@gmail.com',  
+    'admin@lespolyana.ru',  
 ];
 
 if (!isset($_SESSION['user_id']) || !in_array($_SESSION['email'], $allowed_emails)) {
     die('<h2 style="color:red; text-align:center; margin-top:50px;">Доступ запрещен. Эта страница только для сотрудников.</h2><p style="text-align:center;"><a href="index.php">Вернуться на главную</a></p>');
 }
 
-// 2. ОБРАБОТКА ДАТ ИЗ ФОРМЫ
-$date_from = $_POST['date_from'] ?? date('Y-m-01'); // По умолчанию: 1-е число текущего месяца
-$date_to = $_POST['date_to'] ?? date('Y-m-d');      // По умолчанию: сегодня
+$date_from = $_POST['date_from'] ?? date('Y-m-01'); 
+$date_to = $_POST['date_to'] ?? date('Y-m-d');      
 
-// 3. SQL ЗАПРОСЫ (работают с текущей структурой БД)
-
-// А) Сумма продаж (общая выручка по подтвержденным броням)
+// Сумма продаж 
 $stmt = $pdo->prepare("
     SELECT SUM(total_price) AS total_amount 
     FROM bookings 
@@ -29,8 +23,6 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute(['date_from' => $date_from . ' 00:00:00', 'date_to' => $date_to . ' 23:59:59']);
 $total_sales = $stmt->fetch()['total_amount'] ?? 0;
-
-// Б) Среднее значение (средний чек)
 $stmt = $pdo->prepare("
     SELECT AVG(total_price) AS average_price 
     FROM bookings 
@@ -41,11 +33,10 @@ $stmt = $pdo->prepare("
 $stmt->execute(['date_from' => $date_from . ' 00:00:00', 'date_to' => $date_to . ' 23:59:59']);
 $average_check = $stmt->fetch()['average_price'] ?? 0;
 
-// В) Прибыль (упрощенно: 30% от выручки)
-// В реальном проекте здесь был бы JOIN с таблицей расходов
+
 $profit = $total_sales * 0.30;
 
-// Г) Наиболее популярная позиция (домик)
+
 $stmt = $pdo->prepare("
     SELECT c.name, COUNT(b.id) AS total_bookings
     FROM bookings b
@@ -60,7 +51,7 @@ $stmt = $pdo->prepare("
 $stmt->execute(['date_from' => $date_from . ' 00:00:00', 'date_to' => $date_to . ' 23:59:59']);
 $popular_cabin = $stmt->fetch();
 
-// Д) Группировка данных (продажи по каждому домику)
+
 $stmt = $pdo->prepare("
     SELECT c.name, SUM(b.total_price) AS total, COUNT(b.id) AS bookings_count
     FROM bookings b
@@ -112,7 +103,7 @@ $grouped_sales = $stmt->fetchAll();
     <div class="analytics-container">
         <h2>📊 Аналитический модуль</h2>
         
-        <!-- Форма фильтрации по периоду -->
+        
         <form method="POST" class="filter-form">
             <div class="form-group">
                 <label for="date_from">Дата начала:</label>
@@ -125,7 +116,7 @@ $grouped_sales = $stmt->fetchAll();
             <button type="submit" class="btn">Рассчитать</button>
         </form>
 
-        <!-- Основные показатели -->
+        
         <div class="metrics-grid">
             <div class="metric-card">
                 <h3>💰 Сумма продаж</h3>
@@ -150,8 +141,8 @@ $grouped_sales = $stmt->fetchAll();
             </div>
         </div>
 
-        <!-- Группировка по домикам -->
-        <h3>📋 Продажи по домикам</h3>
+        <
+        <h3>Продажи по домикам</h3>
         <?php if (count($grouped_sales) > 0): ?>
             <table class="grouped-table">
                 <thead>
