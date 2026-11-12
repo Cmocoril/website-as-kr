@@ -69,7 +69,7 @@
         <h2>Наши домики</h2>
         <div class="cabins-grid">
             <div class="cabin-card">
-                <img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=600" alt="Домик 1">
+                <img src="images/лес.jpg" alt="Лесной домик">
                 <div class="cabin-info">
                     <h3>Лесной домик</h3>
                     <p>Уютный домик для двоих с видом на лес</p>
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <div class="cabin-card">
-                <img src="https://images.unsplash.com/photo-1518732714860-b62714ce0c59?w=600" alt="Домик 2">
+                <img src="images/семейник.jpg" alt="Семейный коттедж">
                 <div class="cabin-info">
                     <h3>Семейный коттедж</h3>
                     <p>Просторный коттедж для семьи до 6 человек</p>
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="cabin-card">
-                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600" alt="Домик 3">
+                <img src="images/випка.jpg" alt="VIP домик">
                 <div class="cabin-info">
                     <h3>VIP-шале</h3>
                     <p>Премиальный шале с сауной и джакузи</p>
