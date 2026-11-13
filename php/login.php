@@ -29,7 +29,7 @@ if (empty($errors)) {
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['phone'] = $user['phone'];
-        
+        $_SESSION['role'] = $user['role'];
         header('Location: ../cabinet.php');
         exit;
     } else {
